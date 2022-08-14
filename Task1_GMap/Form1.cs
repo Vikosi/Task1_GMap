@@ -41,13 +41,13 @@ namespace Task1_GMap
             gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.GoogleMap;
 
              GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-            gMapControl1.Position = new GMap.NET.PointLatLng(47.2226466, 38.8391624);
+            gMapControl1.Position = new GMap.NET.PointLatLng(66.4169575018027, 94.25025752215694);
 
             // Создаём новый список маркеров
             GMapOverlay markersOverlay = new GMapOverlay("markers");
 
             // Инициализация красного маркера с указанием его коордиант
-            GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(47.200041, 38.8855908), GMarkerGoogleType.red);
+            GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(66.4169575018027, 94.25025752215694), GMarkerGoogleType.red);
             marker.ToolTip = new GMap.NET.WindowsForms.ToolTips.GMapRoundedToolTip(marker);
 
             // Текст отображаемый с маркером
