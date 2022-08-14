@@ -20,6 +20,8 @@ namespace Task1_GMap
         public Form1()
         {
             InitializeComponent();
+            DB db = new DB();
+            db.openConnection();
         }
 
         private void gMapControl1_Load(object sender, EventArgs e)
