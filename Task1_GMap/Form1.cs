@@ -26,38 +26,41 @@ namespace Task1_GMap
 
         private void gMapControl1_Load(object sender, EventArgs e)
         {
-         
-            gMapControl1.Bearing = 0;
-            gMapControl1.CanDragMap = true;
-           gMapControl1.DragButton = MouseButtons.Left;
-            gMapControl1.GrayScaleMode = true;
-            gMapControl1.MarkersEnabled = true;
-             gMapControl1.MaxZoom = 18;
-            gMapControl1.MinZoom = 2;
-            gMapControl1.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionWithoutCenter;
-            gMapControl1.NegativeMode = false;
-            gMapControl1.PolygonsEnabled = true;
-            gMapControl1.RoutesEnabled = true;
+
+            gMapControl1.MapProvider = GMapProviders.GoogleMap;
+            GMaps.Instance.Mode = AccessMode.ServerOnly;
+            gMapControl1.DragButton = MouseButtons.Left;
             gMapControl1.ShowTileGridLines = false;
-            gMapControl1.Zoom = 10;
-            gMapControl1.MapProvider = GMap.NET.MapProviders.GMapProviders.GoogleMap;
+            gMapControl1.Position = new PointLatLng(66.4169575018027, 94.25025752215694);
+            gMapControl1.ShowCenter = false;
 
-             GMap.NET.GMaps.Instance.Mode = GMap.NET.AccessMode.ServerOnly;
-            gMapControl1.Position = new GMap.NET.PointLatLng(66.4169575018027, 94.25025752215694);
+        }
+//сделать 
+        public class Us 
+        {
+            Us us = new Us();
+        }
+        private GMarkerGoogle GetMarker(Us us, GMarkerGoogleType gMarkerGoogleType = GMarkerGoogleType.red)
+        {
+            GMarkerGoogle mapMarker = new GMarkerGoogle(new PointLatLng(us.сordx, us.сordy), gMarkerGoogleType);
+            mapMarker.ToolTip = new GMapRoundedToolTip(mapMarker);
+            mapMarker.ToolTipText = us.id;
+            mapMarker.ToolTipMode = MarkerTooltipMode.OnMouseOver;
+            return mapMarker;
+        }
+        private GMapOverlay GetOverlayMarkers(List<Us> uss, string name, GMarkerGoogleType gMarkerGoogleType = GMarkerGoogleType.red)
+        {
+            GMapOverlay gMapMarkers = new GMapOverlay(name);
+            foreach (Us us in uss)
+            {
+                gMapMarkers.Markers.Add(GetMarker(us, gMarkerGoogleType));// добавление маркеров на слой
+            }
+            return gMapMarkers;
 
-            // Создаём новый список маркеров
-            GMapOverlay markersOverlay = new GMapOverlay("markers");
-
-            // Инициализация красного маркера с указанием его коордиант
-            GMarkerGoogle marker = new GMarkerGoogle(new PointLatLng(66.4169575018027, 94.25025752215694), GMarkerGoogleType.red);
-            marker.ToolTip = new GMap.NET.WindowsForms.ToolTips.GMapRoundedToolTip(marker);
-
-            // Текст отображаемый с маркером
-            marker.ToolTipText = "Software Technologies";
-            // Добавляем маркер в список маркеров
-            markersOverlay.Markers.Add(marker);
-            gMapControl1.Overlays.Add(markersOverlay);
-
+        }
+        private void gmap_OnMarkerClick(GMapMarker item, MouseEventArgs e) // оставила, чтобы потом сделать перенос маркера по клику
+        {
+            Console.WriteLine(String.Format("Marker {0} was clicked.", item.Tag));
         }
     }
 }
